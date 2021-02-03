@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+
+
+package proto;
+
+message Data {
+    string mask = 1;
+    string branch = 2;
+    string value = 3;
+}
+
+
+
+message MonitoringMessage {
+    string   monitoring_date      = 1; // format: 2006-01-02T15:04:05.999999999Z07:00
+    string   monitoring_timestamp = 2; // format: 2006-01-02T15:04:05.999999999Z07:00
+    int64    device_id            = 3;
+    int32    hostmodel_id         = 4;
+    string   terminal_resource    = 5;
+    string   method_name          = 6;
+    string   city                 = 7;
+    string   monitoring_task_id   = 8;
+    repeated Data data            = 9;
+}
+
+message Error {
+    string err = 1;
+}
+
+message WriteLog {
+    bool write = 1;
+}
+
+
+message DataWiFi {
+    string mac = 1;
+    string name = 2;
+    int32 discover = 3;
+    int32 channel = 4;
+    int32 signal = 5;
+    int32 channel_used = 6;
+    string bandwidth = 7;
+}
+
+message MonitoringWiFiMessage {
+    string   monitoring_date      = 1; // format: 2006-01-02T15:04:05.999999999Z07:00
+    string   monitoring_timestamp = 2; // format: 2006-01-02T15:04:05.999999999Z07:00
+    int64    device_id            = 3;
+    int32    hostmodel_id         = 4;
+    string   terminal_resource    = 5;
+    string   method_name          = 6;
+    string   city                 = 7;
+    string   monitoring_task_id   = 8;
+    repeated DataWiFi data        = 9;
+}
