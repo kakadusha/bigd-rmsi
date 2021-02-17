@@ -2,7 +2,7 @@
 #set -x
 #
 HST="clickhouse-omsk.rmsi.srv.loc"
-REMOTE_SOCKET="${HST}:8123"  # копия на кластере бигдата
+REMOTE_SOCKET="${HST}:8123"
 REMOTE_SOCKET9000="${HST}:9000"
 REMOTE_SOCKET9440="${HST}:9004"
 

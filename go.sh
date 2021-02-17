@@ -1,0 +1,1 @@
+cd /home/andrey/My/Napa.Backup/bigd-rmsi-my/
