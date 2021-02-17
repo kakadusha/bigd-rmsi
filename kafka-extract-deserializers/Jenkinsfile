@@ -1,0 +1,3 @@
+@Library("bigdata-pipeline-library@master") _
+buildProperties()
+check_merge_sbt(node: 'Common', build: 'check-merge-request')
