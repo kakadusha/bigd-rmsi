@@ -30,10 +30,24 @@ class RmsiMetricsDeserializerTest  extends FunSuite {
     assert(Some("bocharov.ra") == RmsiMetrics.login)
     assert(Some("{phone=89233633096, orderId=order34441291, employee=bocharov.ra, billingUrl=krsk}") == RmsiMetrics.parameters)
     assert(Some("bpmsRequest") == RmsiMetrics.operationType)
-    assert(Some("null") == RmsiMetrics.orderId)
+    //assert(Some("null") == RmsiMetrics.orderId)
+    assert(None == RmsiMetrics.orderId)
+  }
+  test("successRmsiMetricsDeserializerTest with null") {
+    val payload =
+      """
+{"serviceName":"HOUSE-CARD","entityType":"HOUSE_CARD_INFO","createTime":"2020-12-16 08:14:30.738","lastUpdate":"2020-12-16 08:14:31.553","billing":"spb","message":"null","errorMessage":"null","status":"DONE","login":"ustinov.ai","houseId":"557451"}
+    """.stripMargin.getBytes
+    val deserializer = new RmsiMetricsDeserializer(null)
+    val RmsiMetricsOption = deserializer.parseJson(payload)
+    assert(deserializer.parseJson(payload).isDefined)
+    val RmsiMetrics = RmsiMetricsOption.get
+
+    assert(None == RmsiMetrics.message)
+    assert(None == RmsiMetrics.errorMessage)
   }
 
-  test("successRmsiMetricsDeserializerTestMultiple") {
+  test("successRmsiMetricsDeserializerTest sample100.txt") {
     val samplesList = readSampleFromFile("/sample100.txt").filterNot(_.isEmpty)
     for( str <- samplesList ) {
       val deserializer = new RmsiMetricsDeserializer(null)

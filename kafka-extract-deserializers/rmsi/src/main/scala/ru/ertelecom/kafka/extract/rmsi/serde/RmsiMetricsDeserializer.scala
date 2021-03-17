@@ -27,8 +27,16 @@ class RmsiMetricsDeserializer(appConfig: Config) extends Deserializer(appConfig)
         LocalDateTime.parse((jsonVal \ "createTime").as[String].replace(" ", "T")).toEpochSecond(ZoneOffset.UTC),
         LocalDateTime.parse((jsonVal \ "lastUpdate").as[String].replace(" ", "T")).toEpochSecond(ZoneOffset.UTC),
         (jsonVal \ "billing").as[String],
-        (jsonVal \ "message").asOpt[String],
-        (jsonVal \ "errorMessage").asOpt[String],
+        (jsonVal \ "message").asOpt[String] match {
+          case Some("null") => None
+          case None => None
+          case Some(x) => Some(x)
+        },
+        (jsonVal \ "errorMessage").asOpt[String] match {
+          case Some("null") => None
+          case None => None
+          case Some(x) => Some(x)
+        },
         (jsonVal \ "status").asOpt[String],
         (jsonVal \ "result").asOpt[String],
         (jsonVal \ "login").asOpt[String],
@@ -47,7 +55,11 @@ class RmsiMetricsDeserializer(appConfig: Config) extends Deserializer(appConfig)
         (jsonVal \ "realLogin").asOpt[String],
         (jsonVal \ "impersonatedLogin").asOpt[String],
         (jsonVal \ "errorHistory").asOpt[Array[String]],
-        (jsonVal \ "orderId").asOpt[String],
+        (jsonVal \ "orderId").asOpt[String] match {
+          case Some("null") => None
+          case None => None
+          case Some(x) => Some(x)
+        },
         (jsonVal \ "requestId").asOpt[String],
         (jsonVal \ "companyId").asOpt[String],
         (jsonVal \ "office").asOpt[String],
